@@ -13,28 +13,56 @@ DROP TABLE IF EXISTS "t_transaction" CASCADE;
 
 CREATE SEQUENCE seq_account
 	INCREMENT 1
-	MINVALUE 1
+	MINVALUE 0
 	MAXVALUE 9000000000000000000
 	START 1
 	CACHE 1;
 
 CREATE SEQUENCE seq_client
 	INCREMENT 1
-	MINVALUE 1
+	MINVALUE 0
 	MAXVALUE 9000000000000000000
 	START 1
 	CACHE 1;
 
 CREATE SEQUENCE seq_disposition
 	INCREMENT 1
-	MINVALUE 1
+	MINVALUE 0
 	MAXVALUE 9000000000000000000
 	START 1
 	CACHE 1;
 
 CREATE SEQUENCE seq_loan
 	INCREMENT 1
-	MINVALUE 1
+	MINVALUE 0
+	MAXVALUE 9000000000000000000
+	START 1
+	CACHE 1;
+
+CREATE SEQUENCE seq_district
+	INCREMENT 1
+	MINVALUE 0
+	MAXVALUE 9000000000000000000
+	START 1
+	CACHE 1;
+
+CREATE SEQUENCE seq_credit_card
+	INCREMENT 1
+	MINVALUE 0
+	MAXVALUE 9000000000000000000
+	START 1
+	CACHE 1;
+
+CREATE SEQUENCE seq_transaction
+	INCREMENT 1
+	MINVALUE 0
+	MAXVALUE 9000000000000000000
+	START 1
+	CACHE 1;
+
+CREATE SEQUENCE seq_permanent_order
+	INCREMENT 1
+	MINVALUE 0
 	MAXVALUE 9000000000000000000
 	START 1
 	CACHE 1;
@@ -66,7 +94,12 @@ CREATE TABLE "t_credit_card"(
 	card_bk bigint NOT NULL,
 	type varchar(20) NULL,
 	issued date NULL,
-	disp_id bigint NULL);
+	disp_id bigint NULL,
+	card_tk bigint NOT NULL DEFAULT nextval('seq_credit_card'::regclass),
+	version bigint,
+	date_from timestamp without time zone,
+	date_to timestamp without time zone,
+	last_update timestamp without time zone);
 
 CREATE TABLE "t_disposition"
 (
@@ -96,7 +129,12 @@ CREATE TABLE "t_district"(
 	unemployment96 double precision NULL,
 	enterpreneurs integer NULL,
 	crimes95 integer NULL,
-	crimes96 integer NULL);
+	crimes96 integer NULL,
+	district_tk bigint NOT NULL DEFAULT nextval('seq_district'::regclass),
+	version bigint,
+	date_from timestamp without time zone,
+	date_to timestamp without time zone,
+	last_update timestamp without time zone);
 
 CREATE TABLE "t_loan"(
 	loan_bk bigint NOT NULL,
@@ -118,7 +156,12 @@ CREATE TABLE "t_permanent_order"(
 	account_to varchar(50) NULL,
 	amount double precision NULL,
 	k_symbol varchar(20) NULL,
-	account_id bigint NULL);
+	account_id bigint NULL,
+	order_tk bigint NOT NULL DEFAULT nextval('seq_permanent_order'::regclass),
+	version bigint,
+	date_from timestamp without time zone,
+	date_to timestamp without time zone,
+	last_update timestamp without time zone);
 
 CREATE TABLE "t_transaction"(
 	trans_bk integer NOT NULL,
@@ -130,7 +173,12 @@ CREATE TABLE "t_transaction"(
 	k_symbol varchar(20) NULL,
 	bank varchar(2) NULL,
 	account varchar(50) NULL,
-	account_id bigint NULL);
+	account_id bigint NULL,
+	trans_tk bigint NOT NULL DEFAULT nextval('seq_transaction'::regclass),
+	version bigint,
+	date_from timestamp without time zone,
+	date_to timestamp without time zone,
+	last_update timestamp without time zone);
 
 /* Create Primary Keys, Indexes, Uniques, Checks */
 
@@ -142,7 +190,7 @@ ALTER TABLE "t_client" ADD CONSTRAINT "PK_t_client" PRIMARY KEY (client_tk);
 
 CREATE INDEX "IXFK_t_client_t_district" ON "t_client" (district_id ASC);
 
-ALTER TABLE "t_credit_card" ADD CONSTRAINT "PK_t_credit_card" PRIMARY KEY (card_bk);
+ALTER TABLE "t_credit_card" ADD CONSTRAINT "PK_t_credit_card" PRIMARY KEY (card_tk);
 
 CREATE INDEX "IXFK_t_credit_card_t_disposition" ON "t_credit_card" (disp_id ASC);
 
@@ -152,25 +200,25 @@ CREATE INDEX "IXFK_t_disposition_t_account" ON "t_disposition" (account_id ASC);
 
 CREATE INDEX "IXFK_t_disposition_t_client" ON "t_disposition" (client_id ASC);
 
-ALTER TABLE "t_district" ADD CONSTRAINT "PK_t_district" PRIMARY KEY (district_bk);
+ALTER TABLE "t_district" ADD CONSTRAINT "PK_t_district" PRIMARY KEY (district_tk);
 
 ALTER TABLE "t_loan" ADD CONSTRAINT "PK_t_loan" PRIMARY KEY (loan_tk);
 
 CREATE INDEX "IXFK_t_loan_t_account" ON "t_loan" (account_id ASC);
 
-ALTER TABLE "t_permanent_order" ADD CONSTRAINT "PK_t_permanent_order" PRIMARY KEY (order_bk);
+ALTER TABLE "t_permanent_order" ADD CONSTRAINT "PK_t_permanent_order" PRIMARY KEY (order_tk);
 
 CREATE INDEX "IXFK_t_permanent_order_t_account" ON "t_permanent_order" (account_id ASC);
 
-ALTER TABLE "t_transaction" ADD CONSTRAINT "PK_t_transaction" PRIMARY KEY (trans_bk);
+ALTER TABLE "t_transaction" ADD CONSTRAINT "PK_t_transaction" PRIMARY KEY (trans_tk);
 
 CREATE INDEX "IXFK_t_transaction_t_account" ON "t_transaction" (account_id ASC);
 
 /* Create Foreign Key Constraints */
 
-ALTER TABLE "t_account" ADD CONSTRAINT "FK_t_account_t_district" FOREIGN KEY (district_id) REFERENCES "t_district" (district_bk) ON DELETE No Action ON UPDATE No Action;
+ALTER TABLE "t_account" ADD CONSTRAINT "FK_t_account_t_district" FOREIGN KEY (district_id) REFERENCES "t_district" (district_tk) ON DELETE No Action ON UPDATE No Action;
 
-ALTER TABLE "t_client" ADD CONSTRAINT "FK_t_client_t_district" FOREIGN KEY (district_id) REFERENCES "t_district" (district_bk) ON DELETE No Action ON UPDATE No Action;
+ALTER TABLE "t_client" ADD CONSTRAINT "FK_t_client_t_district" FOREIGN KEY (district_id) REFERENCES "t_district" (district_tk) ON DELETE No Action ON UPDATE No Action;
 
 ALTER TABLE "t_credit_card" ADD CONSTRAINT "FK_t_credit_card_t_disposition" FOREIGN KEY (disp_id) REFERENCES "t_disposition" (disp_tk) ON DELETE No Action ON UPDATE No Action;
 

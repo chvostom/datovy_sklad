@@ -41,7 +41,7 @@ CREATE TABLE disposition(
 
 CREATE TABLE district(
 	district_id integer NOT NULL,
-	"district _name" varchar(20) NULL,
+	district_name varchar(20) NULL,
 	region varchar(20) NULL,
 	inhabitants integer NULL,
 	municipalities1 integer NULL,
@@ -52,7 +52,7 @@ CREATE TABLE district(
 	ratio_of_urban double precision NULL,
 	salary integer NULL,
 	unemployment95 varchar(10) NULL,
-	unemployment96 double precision NULL,
+	unemployment96 varchar(10) NULL,
 	enterpreneurs integer NULL,
 	crimes95 varchar(10) NULL,
 	crimes96 integer NULL

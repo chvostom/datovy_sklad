@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>DISTRICT_LOAD</name>
+    <name>t_credit_card_LOAD</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -428,10 +428,10 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2020/04/08 23:42:30.822</created_date>
+    <created_date>2020/04/09 21:54:45.222</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2020/04/08 23:42:30.822</modified_date>
-    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
+    <modified_date>2020/04/09 21:54:45.222</modified_date>
+    <key_for_session_key/>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
@@ -487,233 +487,82 @@
       </attribute>
     </attributes>
   </connection>
+  <connection>
+    <name>localhost_target</name>
+    <server>localhost</server>
+    <type>POSTGRESQL</type>
+    <access>Native</access>
+    <database>target</database>
+    <port>5432</port>
+    <username>postgres</username>
+    <password>Encrypted 2be98afc80bcf9d8ebf41f651f6bd85ee</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>5432</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
+      </attribute>
+    </attributes>
+  </connection>
   <order>
     <hop>
-      <from>ASC file input - DISTRICT</from>
-      <to>Table output - DISTRICT</to>
+      <from>Table input - CREDIT_CARD</from>
+      <to>Stream lookup - DISPOSITION</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Table input - DISPOSITION</from>
+      <to>Stream lookup - DISPOSITION</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Stream lookup - DISPOSITION</from>
+      <to>Select values - CREDIT_CARD</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values - CREDIT_CARD</from>
+      <to>Dimension lookup/update - CREDIT_CARD</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>ASC file input - DISTRICT</name>
-    <type>CsvInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <filename>${FINANCIAL_DATA}\district.asc</filename>
-    <filename_field/>
-    <rownum_field/>
-    <include_filename>N</include_filename>
-    <separator>;</separator>
-    <enclosure>"</enclosure>
-    <header>Y</header>
-    <buffer_size>50000</buffer_size>
-    <lazy_conversion>Y</lazy_conversion>
-    <add_filename_result>N</add_filename_result>
-    <parallel>N</parallel>
-    <newline_possible>N</newline_possible>
-    <format>mixed</format>
-    <encoding/>
-    <fields>
-      <field>
-        <name>A1</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>Kč</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>A2</name>
-        <type>String</type>
-        <format/>
-        <currency>Kč</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <length>19</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>A3</name>
-        <type>String</type>
-        <format/>
-        <currency>Kč</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <length>15</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>A4</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>Kč</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>A5</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>Kč</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>A6</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>Kč</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>A7</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>Kč</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>A8</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>Kč</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>A9</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>Kč</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>A10</name>
-        <type>Number</type>
-        <format>#.#</format>
-        <currency>Kč</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>A11</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>Kč</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>A12</name>
-        <type>String</type>
-        <format/>
-        <currency>Kč</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <length>4</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>A13</name>
-        <type>String</type>
-        <format>#.#</format>
-        <currency>Kč</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>A14</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>Kč</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>A15</name>
-        <type>String</type>
-        <format/>
-        <currency>Kč</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <length>5</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>A16</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>Kč</currency>
-        <decimal>,</decimal>
-        <group> </group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>208</xloc>
-      <yloc>112</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Table output - DISTRICT</name>
-    <type>TableOutput</type>
+    <name>Table input - CREDIT_CARD</name>
+    <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -723,87 +572,230 @@
       <schema_name/>
     </partitioning>
     <connection>localhost_stage</connection>
-    <schema>public</schema>
-    <table>district</table>
-    <commit>1000</commit>
-    <truncate>Y</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
+    <sql>SELECT * FROM credit_card;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <row-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>card_id</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>Table input</origin>
+        <comments>card_id</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol> </grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>cs_CZ</date_format_locale>
+        <date_format_timezone>Europe/Prague</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>disp_id</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>Table input</origin>
+        <comments>disp_id</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol> </grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>cs_CZ</date_format_locale>
+        <date_format_timezone>Europe/Prague</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>type</name>
+        <length>20</length>
+        <precision>-1</precision>
+        <origin>Table input</origin>
+        <comments>type</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol> </grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>cs_CZ</date_format_locale>
+        <date_format_timezone>Europe/Prague</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Date</type>
+        <storagetype>normal</storagetype>
+        <name>issued</name>
+        <length>-1</length>
+        <precision>-1</precision>
+        <origin>Table input</origin>
+        <comments>issued</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol> </grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>cs_CZ</date_format_locale>
+        <date_format_timezone>Europe/Prague</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+    </row-meta>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>192</xloc>
+      <yloc>96</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Table input - DISPOSITION</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>localhost_target</connection>
+    <sql>SELECT * FROM t_disposition;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <row-meta/>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>192</xloc>
+      <yloc>384</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Stream lookup - DISPOSITION</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <from>Table input - DISPOSITION</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>Y</integer_pair>
+    <lookup>
+      <key>
+        <name>disp_id</name>
+        <field>disp_bk</field>
+      </key>
+      <value>
+        <name>disp_tk</name>
+        <rename>disp_tk</rename>
+        <default>0</default>
+        <type>Integer</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>368</xloc>
+      <yloc>224</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Select values - CREDIT_CARD</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
     <fields>
       <field>
-        <column_name>district_id</column_name>
-        <stream_name>A1</stream_name>
+        <name>card_id</name>
+        <rename>card_bk</rename>
       </field>
       <field>
-        <column_name>district_name</column_name>
-        <stream_name>A2</stream_name>
+        <name>disp_id</name>
+        <rename/>
       </field>
       <field>
-        <column_name>region</column_name>
-        <stream_name>A3</stream_name>
+        <name>type</name>
+        <rename/>
       </field>
       <field>
-        <column_name>inhabitants</column_name>
-        <stream_name>A4</stream_name>
+        <name>issued</name>
+        <rename/>
       </field>
       <field>
-        <column_name>municipalities1</column_name>
-        <stream_name>A5</stream_name>
+        <name>disp_tk</name>
+        <rename/>
       </field>
-      <field>
-        <column_name>municipalities2</column_name>
-        <stream_name>A6</stream_name>
-      </field>
-      <field>
-        <column_name>municipalities3</column_name>
-        <stream_name>A7</stream_name>
-      </field>
-      <field>
-        <column_name>municipalities4</column_name>
-        <stream_name>A8</stream_name>
-      </field>
-      <field>
-        <column_name>cities</column_name>
-        <stream_name>A9</stream_name>
-      </field>
-      <field>
-        <column_name>ratio_of_urban</column_name>
-        <stream_name>A10</stream_name>
-      </field>
-      <field>
-        <column_name>salary</column_name>
-        <stream_name>A11</stream_name>
-      </field>
-      <field>
-        <column_name>unemployment95</column_name>
-        <stream_name>A12</stream_name>
-      </field>
-      <field>
-        <column_name>unemployment96</column_name>
-        <stream_name>A13</stream_name>
-      </field>
-      <field>
-        <column_name>enterpreneurs</column_name>
-        <stream_name>A14</stream_name>
-      </field>
-      <field>
-        <column_name>crimes95</column_name>
-        <stream_name>A15</stream_name>
-      </field>
-      <field>
-        <column_name>crimes96</column_name>
-        <stream_name>A16</stream_name>
-      </field>
+      <select_unspecified>N</select_unspecified>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -814,8 +806,85 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>576</xloc>
-      <yloc>112</yloc>
+      <xloc>608</xloc>
+      <yloc>224</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Dimension lookup/update - CREDIT_CARD</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <schema>public</schema>
+    <table>t_credit_card</table>
+    <connection>localhost_target</connection>
+    <commit>100</commit>
+    <update>Y</update>
+    <fields>
+      <key>
+        <name>card_bk</name>
+        <lookup>card_bk</lookup>
+      </key>
+      <date>
+        <name/>
+        <from>date_from</from>
+        <to>date_to</to>
+      </date>
+      <field>
+        <name>disp_tk</name>
+        <lookup>disp_id</lookup>
+        <update>Punch through</update>
+      </field>
+      <field>
+        <name>type</name>
+        <lookup>type</lookup>
+        <update>Punch through</update>
+      </field>
+      <field>
+        <name>issued</name>
+        <lookup>issued</lookup>
+        <update>Punch through</update>
+      </field>
+      <field>
+        <name/>
+        <lookup>last_update</lookup>
+        <update>DateInsertedOrUpdated</update>
+      </field>
+      <return>
+        <name>card_tk</name>
+        <rename/>
+        <creation_method>sequence</creation_method>
+        <use_autoinc>N</use_autoinc>
+        <version>version</version>
+      </return>
+    </fields>
+    <sequence>seq_credit_card</sequence>
+    <min_year>1900</min_year>
+    <max_year>2199</max_year>
+    <cache_size>5000</cache_size>
+    <preload_cache>N</preload_cache>
+    <use_start_date_alternative>N</use_start_date_alternative>
+    <start_date_alternative>none</start_date_alternative>
+    <start_date_field_name/>
+    <useBatch>N</useBatch>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>864</xloc>
+      <yloc>224</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

@@ -20,7 +20,9 @@ DDL s technickými sloupci a správnými klíči pro target databázi se nacház
 
 ## ETL procesy
 
-ETL procesy pro stage se nachází ve složce ETL/Stage
+ETL procesy pro stage se nachází ve složce ETL/STAGE
+
+ETL procesy peo target se nachází ve složce ETL/TARGET
 
 ## Ostatní
 
