@@ -15,6 +15,8 @@ Datová logická mapa se nachází v souboru DLM/DLM.xlsx
 
 DDL pro stage databázi se nachází v souboru DDL/StageDDL.sql
 
+DDL s technickými sloupci a správnými klíči pro target databázi se nachází v souboru DDL/TargetDDL.sql
+
 
 ## ETL procesy
 
@@ -22,4 +24,4 @@ ETL procesy pro stage se nachází ve složce ETL/Stage
 
 ## Ostatní
 
-Ve složce FINANCIAL_DATA se nachází původní datasety potřebné pro ETL procesy pro stage. Ve složce MODELS se nachází model pro stage i target.
+Ve složce FINANCIAL_DATA se nachází původní datasety potřebné pro ETL procesy pro stage. Ve složce MODELS se nachází model pro stage.

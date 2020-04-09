@@ -11,39 +11,35 @@ DROP TABLE IF EXISTS transaction CASCADE;
 
 /* Create Tables */
 
-CREATE TABLE account
-(
+CREATE TABLE account(
 	account_id integer NOT NULL,
 	district_id integer NULL,
 	frequency varchar(20) NULL,
 	date date NULL
-);
+)
+;
 
-CREATE TABLE client
-(
+CREATE TABLE client(
 	client_id integer NOT NULL,
 	district_id integer NULL,
 	birth_number varchar(6) NULL
 );
 
-CREATE TABLE credit_card
-(
+CREATE TABLE credit_card(
 	card_id integer NOT NULL,
 	disp_id integer NULL,
 	type varchar(20) NULL,
 	issued date NULL
 );
 
-CREATE TABLE disposition
-(
+CREATE TABLE disposition(
 	disp_id integer NOT NULL,
 	client_id integer NULL,
 	account_id integer NULL,
 	type varchar(20) NULL
 );
 
-CREATE TABLE district
-(
+CREATE TABLE district(
 	district_id integer NOT NULL,
 	"district _name" varchar(20) NULL,
 	region varchar(20) NULL,
@@ -62,8 +58,7 @@ CREATE TABLE district
 	crimes96 integer NULL
 );
 
-CREATE TABLE loan
-(
+CREATE TABLE loan(
 	loan_id integer NOT NULL,
 	account_id integer NULL,
 	date date NULL,
@@ -73,8 +68,7 @@ CREATE TABLE loan
 	status char(1) NULL
 );
 
-CREATE TABLE permanent_order
-(
+CREATE TABLE permanent_order(
 	order_id integer NOT NULL,
 	account_id integer NULL,
 	bank_to varchar(2) NULL,
@@ -83,8 +77,7 @@ CREATE TABLE permanent_order
 	k_symbol varchar(20) NULL
 );
 
-CREATE TABLE transaction
-(
+CREATE TABLE transaction(
 	trans_id integer NOT NULL,
 	account_id integer NULL,
 	date date NULL,
@@ -96,29 +89,3 @@ CREATE TABLE transaction
 	bank varchar(2) NULL,
 	account varchar(50) NULL
 );
-
-/* Create Primary Keys, Indexes, Uniques, Checks */
-
-ALTER TABLE account ADD CONSTRAINT "PK_account"
-	PRIMARY KEY (account_id);
-
-ALTER TABLE client ADD CONSTRAINT "PK_client"
-	PRIMARY KEY (client_id);
-
-ALTER TABLE credit_card ADD CONSTRAINT "PK_credit_card"
-	PRIMARY KEY (card_id);
-
-ALTER TABLE disposition ADD CONSTRAINT "PK_disposition"
-	PRIMARY KEY (disp_id);
-
-ALTER TABLE district ADD CONSTRAINT "PK_district"
-	PRIMARY KEY (district_id);
-
-ALTER TABLE loan ADD CONSTRAINT "PK_loan"
-	PRIMARY KEY (loan_id);
-
-ALTER TABLE permanent_order ADD CONSTRAINT "PK_permanent_order"
-	PRIMARY KEY (order_id);
-
-ALTER TABLE transaction ADD CONSTRAINT "PK_transaction"
-	PRIMARY KEY (trans_id);
