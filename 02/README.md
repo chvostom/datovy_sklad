@@ -26,6 +26,8 @@ ETL procesy pro target se nachází ve složce ETL/TARGET
 
 Job, který spouští všechny transformace se nachází ce složce ETL/JOBS
 
+Pro běh transformací jsou potřebné dvě proměnné prostředí $FINANCIAL_DATA a $ETL_DATA. V proměnné $FINANCIAL_DATA musí být uložena cesta k původně zadaným datasetům. V proměnné $ETL_DATA musí být uložena cesta k adresáři, ve kterém se nachází všechny transformace. Všechny transformace se musí nacházet v jednom adresáři.
+
 ## Ostatní
 
 Ve složce FINANCIAL_DATA se nachází původní datasety potřebné pro ETL procesy pro stage. Ve složce MODELS se nachází upravený model pro stage i target. Oba modely jsou uloženy v .png formátu.
