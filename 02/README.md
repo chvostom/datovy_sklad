@@ -22,8 +22,10 @@ DDL s technickými sloupci a správnými klíči pro target databázi se nacház
 
 ETL procesy pro stage se nachází ve složce ETL/STAGE
 
-ETL procesy peo target se nachází ve složce ETL/TARGET
+ETL procesy pro target se nachází ve složce ETL/TARGET
+
+Job, který spouští všechny transformace se nachází ce složce ETL/JOBS
 
 ## Ostatní
 
-Ve složce FINANCIAL_DATA se nachází původní datasety potřebné pro ETL procesy pro stage. Ve složce MODELS se nachází model pro stage.
+Ve složce FINANCIAL_DATA se nachází původní datasety potřebné pro ETL procesy pro stage. Ve složce MODELS se nachází upravený model pro stage i target. Oba modely jsou uloženy v .png formátu.
